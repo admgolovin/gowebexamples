@@ -86,7 +86,7 @@ spec:
             steps {
                 container('helm') {
                     script {
-                        currentSlot = sh(script: "helm get values --all hello | grep 'productionSlot:' | cut -d ' ' -f2 | tr -d '[:space:]'", returnStdout: true).trim()
+                        currentSlot = sh(script: "helm get values --all hello-go | grep 'productionSlot:' | cut -d ' ' -f2 | tr -d '[:space:]'", returnStdout: true).trim()
                         if (currentSlot == "blue") {
                                 newSlot="green"
                                 tagVar="imageGreen"
@@ -94,17 +94,17 @@ spec:
                                 newSlot="blue"
                                 tagVar="imageBlue"
                         } else {
-                            sh "helm install -n hello go-hello-world --set imageBlue.tag=${revision},blue.enabled=true"
+                            sh "helm install -n hello-go go-hello-world --set imageBlue.tag=${revision},blue.enabled=true"
                             return
                         }
-                        sh "helm upgrade hello go-hello-world --set ${tagVar}.tag=${revision},${newSlot}.enabled=true --reuse-values"
+                        sh "helm upgrade hello-go go-hello-world --set ${tagVar}.tag=${revision},${newSlot}.enabled=true --reuse-values"
                         userInput = input(message: 'Switch productionSlot? y\\n', parameters: [[$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env']])
                         if (userInput == "y") {
-                            sh "helm upgrade hello go-hello-world --set productionSlot=${newSlot} --reuse-values"
+                            sh "helm upgrade hello-go go-hello-world --set productionSlot=${newSlot} --reuse-values"
                         }
                         userInput = input(message: 'Delete old deployment? y\\n', parameters: [[$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env']])
                         if (userInput == "y") {
-                            sh "helm upgrade hello go-hello-world --set ${currentSlot}.enabled=false --reuse-values"
+                            sh "helm upgrade hello-go go-hello-world --set ${currentSlot}.enabled=false --reuse-values"
                         }
                     }
                 }
