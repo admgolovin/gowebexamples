@@ -66,7 +66,7 @@ spec:
         stage ('compile') {
             steps {
                 container('hugo') {
-                    sh 'sudo apt-get update && sudo apt-get install -y hugo'
+                    sh 'apt-get update && apt-get install -y hugo'
                     sh 'hugo'
                 }
             }
