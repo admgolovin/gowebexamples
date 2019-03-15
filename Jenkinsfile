@@ -23,7 +23,7 @@ spec:
     tty: true
   - name: hugo
     image: ubuntu
-    command: ["apt update", "apt install hugo -y", "cat"]
+    command: ["cat"]
     tty: true
   - name: docker
     image: docker:18.09.2
@@ -66,6 +66,7 @@ spec:
         stage ('compile') {
             steps {
                 container('hugo') {
+                    sh 'sudo apt-get update && sudo apt-get install -y hugo'
                     sh 'hugo'
                 }
             }
