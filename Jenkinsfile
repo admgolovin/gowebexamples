@@ -68,7 +68,6 @@ spec:
                 container('hugo') {
                     sh 'apt-get update && apt-get install -y hugo'
                     sh 'hugo'
-                    sh 'echo 132'
                 }
             }
         }
