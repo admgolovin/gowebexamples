@@ -23,7 +23,7 @@ spec:
     tty: true
   - name: hugo
     image: ubuntu
-    command: ["sudo apt-get update", "sudo apt-get install hugo -y", "cat"]
+    command: ["apt-get update", "apt-get install hugo -y", "cat"]
     tty: true
   - name: docker
     image: docker:18.09.2
