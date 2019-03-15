@@ -71,6 +71,7 @@ spec:
             }
         }
         stage ('build artifact') {
+            steps {
                 container('docker') {
                     script {
                         sh "docker login -u AWS -p ${ECR_PASS} ${registryIp}"
@@ -79,6 +80,7 @@ spec:
                     }
                 }
             }
+        }
         stage ('Deploy') {
             steps {
                 container('helm') {
