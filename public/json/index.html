@@ -187,25 +187,25 @@
 	Age       <span style="color:#458;font-weight:bold">int</span>    <span style="color:#b84">`json:&#34;age&#34;`</span>
 }
 
-<span style="font-weight:bold">func</span> main() {
-	http.HandleFunc(<span style="color:#b84">&#34;/decode&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/decode&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
 		<span style="font-weight:bold">var</span> user User
-		json.NewDecoder(r.Body).Decode(<span style="font-weight:bold">&amp;</span>user)
+		json.<span style="color:#900;font-weight:bold">NewDecoder</span>(r.Body).<span style="color:#900;font-weight:bold">Decode</span>(<span style="font-weight:bold">&amp;</span>user)
 
-		fmt.Fprintf(w, <span style="color:#b84">&#34;%s %s is %d years old!&#34;</span>, user.Firstname, user.Lastname, user.Age)
+		fmt.<span style="color:#900;font-weight:bold">Fprintf</span>(w, <span style="color:#b84">&#34;%s %s is %d years old!&#34;</span>, user.Firstname, user.Lastname, user.Age)
 	})
 
-	http.HandleFunc(<span style="color:#b84">&#34;/encode&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/encode&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
 		peter <span style="font-weight:bold">:=</span> User{
 			Firstname: <span style="color:#b84">&#34;John&#34;</span>,
 			Lastname:  <span style="color:#b84">&#34;Doe&#34;</span>,
 			Age:       <span style="color:#099">25</span>,
 		}
 
-		json.NewEncoder(w).Encode(peter)
+		json.<span style="color:#900;font-weight:bold">NewEncoder</span>(w).<span style="color:#900;font-weight:bold">Encode</span>(peter)
 	})
 
-	http.ListenAndServe(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
+	http.<span style="color:#900;font-weight:bold">ListenAndServe</span>(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
 }</code></pre></div>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ go run json.go
 

@@ -1,0 +1,50 @@
+replicaCount: 1
+
+green:
+  enabled: false
+
+blue:
+  enabled: false
+
+productionSlot: blue
+
+imageBlue:
+  repository: 818353068367.dkr.ecr.eu-central-1.amazonaws.com/andrew
+  tag: 541f606.20190313-1654-origin_master
+  pullPolicy: IfNotPresent
+
+imageGreen:
+  repository: 818353068367.dkr.ecr.eu-central-1.amazonaws.com/andrew
+  tag: bef964a.20190314-2327-origin_master
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: java.p0pc0rn.cf
+      paths:
+        - path: "/"
+          backendsuffix: "-blue"
+    - host: staging.p0pc0rn.cf
+      paths:
+        - path: "/"
+          backendsuffix: "-green"
+
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -192,32 +192,32 @@ For this we have to <code>go get</code> the popular <a target="_blank" href="htt
 	WriteBufferSize: <span style="color:#099">1024</span>,
 }
 
-<span style="font-weight:bold">func</span> main() {
-	http.HandleFunc(<span style="color:#b84">&#34;/echo&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-		conn, _ <span style="font-weight:bold">:=</span> upgrader.Upgrade(w, r, <span style="font-weight:bold">nil</span>) <span style="color:#998;font-style:italic">// error ignored for sake of simplicity
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/echo&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+		conn, _ <span style="font-weight:bold">:=</span> upgrader.<span style="color:#900;font-weight:bold">Upgrade</span>(w, r, <span style="font-weight:bold">nil</span>) <span style="color:#998;font-style:italic">// error ignored for sake of simplicity
 </span><span style="color:#998;font-style:italic"></span>
 		<span style="font-weight:bold">for</span> {
 			<span style="color:#998;font-style:italic">// Read message from browser
-</span><span style="color:#998;font-style:italic"></span>			msgType, msg, err <span style="font-weight:bold">:=</span> conn.ReadMessage()
+</span><span style="color:#998;font-style:italic"></span>			msgType, msg, err <span style="font-weight:bold">:=</span> conn.<span style="color:#900;font-weight:bold">ReadMessage</span>()
 			<span style="font-weight:bold">if</span> err <span style="font-weight:bold">!=</span> <span style="font-weight:bold">nil</span> {
 				<span style="font-weight:bold">return</span>
 			}
 
 			<span style="color:#998;font-style:italic">// Print the message to the console
-</span><span style="color:#998;font-style:italic"></span>			fmt.Printf(<span style="color:#b84">&#34;%s sent: %s\n&#34;</span>, conn.RemoteAddr(), <span style="color:#999">string</span>(msg))
+</span><span style="color:#998;font-style:italic"></span>			fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#b84">&#34;%s sent: %s\n&#34;</span>, conn.<span style="color:#900;font-weight:bold">RemoteAddr</span>(), <span style="color:#999">string</span>(msg))
 
 			<span style="color:#998;font-style:italic">// Write message back to browser
-</span><span style="color:#998;font-style:italic"></span>			<span style="font-weight:bold">if</span> err = conn.WriteMessage(msgType, msg); err <span style="font-weight:bold">!=</span> <span style="font-weight:bold">nil</span> {
+</span><span style="color:#998;font-style:italic"></span>			<span style="font-weight:bold">if</span> err = conn.<span style="color:#900;font-weight:bold">WriteMessage</span>(msgType, msg); err <span style="font-weight:bold">!=</span> <span style="font-weight:bold">nil</span> {
 				<span style="font-weight:bold">return</span>
 			}
 		}
 	})
 
-	http.HandleFunc(<span style="color:#b84">&#34;/&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-		http.ServeFile(w, r, <span style="color:#b84">&#34;websockets.html&#34;</span>)
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+		http.<span style="color:#900;font-weight:bold">ServeFile</span>(w, r, <span style="color:#b84">&#34;websockets.html&#34;</span>)
 	})
 
-	http.ListenAndServe(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
+	http.<span style="color:#900;font-weight:bold">ListenAndServe</span>(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
 }</code></pre></div>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#998;font-style:italic">&lt;!-- websockets.html --&gt;</span>
 &lt;<span style="color:#000080">input</span> <span style="color:#008080">id</span><span style="font-weight:bold">=</span><span style="color:#b84">&#34;input&#34;</span> <span style="color:#008080">type</span><span style="font-weight:bold">=</span><span style="color:#b84">&#34;text&#34;</span> /&gt;

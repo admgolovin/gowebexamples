@@ -189,47 +189,47 @@
 <span style="font-weight:bold">var</span> (
 	<span style="color:#998;font-style:italic">// key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
 </span><span style="color:#998;font-style:italic"></span>	key = []<span style="color:#999">byte</span>(<span style="color:#b84">&#34;super-secret-key&#34;</span>)
-	store = sessions.NewCookieStore(key)
+	store = sessions.<span style="color:#900;font-weight:bold">NewCookieStore</span>(key)
 )
 
-<span style="font-weight:bold">func</span> secret(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-	session, _ <span style="font-weight:bold">:=</span> store.Get(r, <span style="color:#b84">&#34;cookie-name&#34;</span>)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">secret</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+	session, _ <span style="font-weight:bold">:=</span> store.<span style="color:#900;font-weight:bold">Get</span>(r, <span style="color:#b84">&#34;cookie-name&#34;</span>)
 
 	<span style="color:#998;font-style:italic">// Check if user is authenticated
 </span><span style="color:#998;font-style:italic"></span>	<span style="font-weight:bold">if</span> auth, ok <span style="font-weight:bold">:=</span> session.Values[<span style="color:#b84">&#34;authenticated&#34;</span>].(<span style="color:#458;font-weight:bold">bool</span>); !ok <span style="font-weight:bold">||</span> !auth {
-		http.Error(w, <span style="color:#b84">&#34;Forbidden&#34;</span>, http.StatusForbidden)
+		http.<span style="color:#900;font-weight:bold">Error</span>(w, <span style="color:#b84">&#34;Forbidden&#34;</span>, http.StatusForbidden)
 		<span style="font-weight:bold">return</span>
 	}
 
 	<span style="color:#998;font-style:italic">// Print secret message
-</span><span style="color:#998;font-style:italic"></span>	fmt.Fprintln(w, <span style="color:#b84">&#34;The cake is a lie!&#34;</span>)
+</span><span style="color:#998;font-style:italic"></span>	fmt.<span style="color:#900;font-weight:bold">Fprintln</span>(w, <span style="color:#b84">&#34;The cake is a lie!&#34;</span>)
 }
 
-<span style="font-weight:bold">func</span> login(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-	session, _ <span style="font-weight:bold">:=</span> store.Get(r, <span style="color:#b84">&#34;cookie-name&#34;</span>)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">login</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+	session, _ <span style="font-weight:bold">:=</span> store.<span style="color:#900;font-weight:bold">Get</span>(r, <span style="color:#b84">&#34;cookie-name&#34;</span>)
 
 	<span style="color:#998;font-style:italic">// Authentication goes here
 </span><span style="color:#998;font-style:italic"></span>	<span style="color:#998;font-style:italic">// ...
 </span><span style="color:#998;font-style:italic"></span>
 	<span style="color:#998;font-style:italic">// Set user as authenticated
 </span><span style="color:#998;font-style:italic"></span>	session.Values[<span style="color:#b84">&#34;authenticated&#34;</span>] = <span style="font-weight:bold">true</span>
-	session.Save(r, w)
+	session.<span style="color:#900;font-weight:bold">Save</span>(r, w)
 }
 
-<span style="font-weight:bold">func</span> logout(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-	session, _ <span style="font-weight:bold">:=</span> store.Get(r, <span style="color:#b84">&#34;cookie-name&#34;</span>)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">logout</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+	session, _ <span style="font-weight:bold">:=</span> store.<span style="color:#900;font-weight:bold">Get</span>(r, <span style="color:#b84">&#34;cookie-name&#34;</span>)
 
 	<span style="color:#998;font-style:italic">// Revoke users authentication
 </span><span style="color:#998;font-style:italic"></span>	session.Values[<span style="color:#b84">&#34;authenticated&#34;</span>] = <span style="font-weight:bold">false</span>
-	session.Save(r, w)
+	session.<span style="color:#900;font-weight:bold">Save</span>(r, w)
 }
 
-<span style="font-weight:bold">func</span> main() {
-	http.HandleFunc(<span style="color:#b84">&#34;/secret&#34;</span>, secret)
-	http.HandleFunc(<span style="color:#b84">&#34;/login&#34;</span>, login)
-	http.HandleFunc(<span style="color:#b84">&#34;/logout&#34;</span>, logout)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/secret&#34;</span>, secret)
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/login&#34;</span>, login)
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/logout&#34;</span>, logout)
 
-	http.ListenAndServe(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
+	http.<span style="color:#900;font-weight:bold">ListenAndServe</span>(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
 }</code></pre></div>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ go run sessions.go
 

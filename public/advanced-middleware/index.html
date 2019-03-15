@@ -179,7 +179,7 @@ You can find a more detailed explaination including the talk <a target="_blank" 
 
 <p><br />
 This snippet explains in detail how a new middleware is created. In the full example below, we reduce this version by some boilerplate code.
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="font-weight:bold">func</span> createNewMiddleware() Middleware {
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">createNewMiddleware</span>() Middleware {
 
 	<span style="color:#998;font-style:italic">// Create a new Middleware
 </span><span style="color:#998;font-style:italic"></span>	middleware <span style="font-weight:bold">:=</span> <span style="font-weight:bold">func</span>(next http.HandlerFunc) http.HandlerFunc {
@@ -190,7 +190,7 @@ This snippet explains in detail how a new middleware is created. In the full exa
 			<span style="color:#998;font-style:italic">// ... do middleware things
 </span><span style="color:#998;font-style:italic"></span>
 			<span style="color:#998;font-style:italic">// Call the next middleware/handler in chain
-</span><span style="color:#998;font-style:italic"></span>			next(w, r)
+</span><span style="color:#998;font-style:italic"></span>			<span style="color:#900;font-weight:bold">next</span>(w, r)
 		}
 
 		<span style="color:#998;font-style:italic">// Return newly created handler
@@ -215,7 +215,7 @@ This is the full example:
 <span style="font-weight:bold">type</span> Middleware <span style="font-weight:bold">func</span>(http.HandlerFunc) http.HandlerFunc
 
 <span style="color:#998;font-style:italic">// Logging logs all requests with its path and the time it took to process
-</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">func</span> Logging() Middleware {
+</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">Logging</span>() Middleware {
 
 	<span style="color:#998;font-style:italic">// Create a new Middleware
 </span><span style="color:#998;font-style:italic"></span>	<span style="font-weight:bold">return</span> <span style="font-weight:bold">func</span>(f http.HandlerFunc) http.HandlerFunc {
@@ -224,17 +224,17 @@ This is the full example:
 </span><span style="color:#998;font-style:italic"></span>		<span style="font-weight:bold">return</span> <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
 
 			<span style="color:#998;font-style:italic">// Do middleware things
-</span><span style="color:#998;font-style:italic"></span>			start <span style="font-weight:bold">:=</span> time.Now()
-			<span style="font-weight:bold">defer</span> <span style="font-weight:bold">func</span>() { log.Println(r.URL.Path, time.Since(start)) }()
+</span><span style="color:#998;font-style:italic"></span>			start <span style="font-weight:bold">:=</span> time.<span style="color:#900;font-weight:bold">Now</span>()
+			<span style="font-weight:bold">defer</span> <span style="font-weight:bold">func</span>() { log.<span style="color:#900;font-weight:bold">Println</span>(r.URL.Path, time.<span style="color:#900;font-weight:bold">Since</span>(start)) }()
 
 			<span style="color:#998;font-style:italic">// Call the next middleware/handler in chain
-</span><span style="color:#998;font-style:italic"></span>			f(w, r)
+</span><span style="color:#998;font-style:italic"></span>			<span style="color:#900;font-weight:bold">f</span>(w, r)
 		}
 	}
 }
 
 <span style="color:#998;font-style:italic">// Method ensures that url can only be requested with a specific method, else returns a 400 Bad Request
-</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">func</span> Method(m <span style="color:#458;font-weight:bold">string</span>) Middleware {
+</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">Method</span>(m <span style="color:#458;font-weight:bold">string</span>) Middleware {
 
 	<span style="color:#998;font-style:italic">// Create a new Middleware
 </span><span style="color:#998;font-style:italic"></span>	<span style="font-weight:bold">return</span> <span style="font-weight:bold">func</span>(f http.HandlerFunc) http.HandlerFunc {
@@ -244,31 +244,31 @@ This is the full example:
 
 			<span style="color:#998;font-style:italic">// Do middleware things
 </span><span style="color:#998;font-style:italic"></span>			<span style="font-weight:bold">if</span> r.Method <span style="font-weight:bold">!=</span> m {
-				http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+				http.<span style="color:#900;font-weight:bold">Error</span>(w, http.<span style="color:#900;font-weight:bold">StatusText</span>(http.StatusBadRequest), http.StatusBadRequest)
 				<span style="font-weight:bold">return</span>
 			}
 
 			<span style="color:#998;font-style:italic">// Call the next middleware/handler in chain
-</span><span style="color:#998;font-style:italic"></span>			f(w, r)
+</span><span style="color:#998;font-style:italic"></span>			<span style="color:#900;font-weight:bold">f</span>(w, r)
 		}
 	}
 }
 
 <span style="color:#998;font-style:italic">// Chain applies middlewares to a http.HandlerFunc
-</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">func</span> Chain(f http.HandlerFunc, middlewares <span style="font-weight:bold">...</span>Middleware) http.HandlerFunc {
+</span><span style="color:#998;font-style:italic"></span><span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">Chain</span>(f http.HandlerFunc, middlewares <span style="font-weight:bold">...</span>Middleware) http.HandlerFunc {
 	<span style="font-weight:bold">for</span> _, m <span style="font-weight:bold">:=</span> <span style="font-weight:bold">range</span> middlewares {
-		f = m(f)
+		f = <span style="color:#900;font-weight:bold">m</span>(f)
 	}
 	<span style="font-weight:bold">return</span> f
 }
 
-<span style="font-weight:bold">func</span> Hello(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-	fmt.Fprintln(w, <span style="color:#b84">&#34;hello world&#34;</span>)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">Hello</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+	fmt.<span style="color:#900;font-weight:bold">Fprintln</span>(w, <span style="color:#b84">&#34;hello world&#34;</span>)
 }
 
-<span style="font-weight:bold">func</span> main() {
-	http.HandleFunc(<span style="color:#b84">&#34;/&#34;</span>, Chain(Hello, Method(<span style="color:#b84">&#34;GET&#34;</span>), Logging()))
-	http.ListenAndServe(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/&#34;</span>, <span style="color:#900;font-weight:bold">Chain</span>(Hello, <span style="color:#900;font-weight:bold">Method</span>(<span style="color:#b84">&#34;GET&#34;</span>), <span style="color:#900;font-weight:bold">Logging</span>()))
+	http.<span style="color:#900;font-weight:bold">ListenAndServe</span>(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
 }</code></pre></div>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ go run advanced-middleware.go
 2017/02/11 00:34:53 / 0s

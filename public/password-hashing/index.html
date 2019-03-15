@@ -186,25 +186,25 @@ For this we have to <code>go get</code> the golang bcrypt library like so:</p>
 	<span style="color:#b84">&#34;golang.org/x/crypto/bcrypt&#34;</span>
 )
 
-<span style="font-weight:bold">func</span> HashPassword(password <span style="color:#458;font-weight:bold">string</span>) (<span style="color:#458;font-weight:bold">string</span>, <span style="color:#458;font-weight:bold">error</span>) {
-	bytes, err <span style="font-weight:bold">:=</span> bcrypt.GenerateFromPassword([]<span style="color:#999">byte</span>(password), <span style="color:#099">14</span>)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">HashPassword</span>(password <span style="color:#458;font-weight:bold">string</span>) (<span style="color:#458;font-weight:bold">string</span>, <span style="color:#458;font-weight:bold">error</span>) {
+	bytes, err <span style="font-weight:bold">:=</span> bcrypt.<span style="color:#900;font-weight:bold">GenerateFromPassword</span>([]<span style="color:#999">byte</span>(password), <span style="color:#099">14</span>)
 	<span style="font-weight:bold">return</span> <span style="color:#999">string</span>(bytes), err
 }
 
-<span style="font-weight:bold">func</span> CheckPasswordHash(password, hash <span style="color:#458;font-weight:bold">string</span>) <span style="color:#458;font-weight:bold">bool</span> {
-	err <span style="font-weight:bold">:=</span> bcrypt.CompareHashAndPassword([]<span style="color:#999">byte</span>(hash), []<span style="color:#999">byte</span>(password))
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">CheckPasswordHash</span>(password, hash <span style="color:#458;font-weight:bold">string</span>) <span style="color:#458;font-weight:bold">bool</span> {
+	err <span style="font-weight:bold">:=</span> bcrypt.<span style="color:#900;font-weight:bold">CompareHashAndPassword</span>([]<span style="color:#999">byte</span>(hash), []<span style="color:#999">byte</span>(password))
 	<span style="font-weight:bold">return</span> err <span style="font-weight:bold">==</span> <span style="font-weight:bold">nil</span>
 }
 
-<span style="font-weight:bold">func</span> main() {
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
 	password <span style="font-weight:bold">:=</span> <span style="color:#b84">&#34;secret&#34;</span>
-	hash, _ <span style="font-weight:bold">:=</span> HashPassword(password) <span style="color:#998;font-style:italic">// ignore error for the sake of simplicity
+	hash, _ <span style="font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">HashPassword</span>(password) <span style="color:#998;font-style:italic">// ignore error for the sake of simplicity
 </span><span style="color:#998;font-style:italic"></span>
-	fmt.Println(<span style="color:#b84">&#34;Password:&#34;</span>, password)
-	fmt.Println(<span style="color:#b84">&#34;Hash:    &#34;</span>, hash)
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#b84">&#34;Password:&#34;</span>, password)
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#b84">&#34;Hash:    &#34;</span>, hash)
 
-	match <span style="font-weight:bold">:=</span> CheckPasswordHash(password, hash)
-	fmt.Println(<span style="color:#b84">&#34;Match:   &#34;</span>, match)
+	match <span style="font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">CheckPasswordHash</span>(password, hash)
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#b84">&#34;Match:   &#34;</span>, match)
 }</code></pre></div>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ go run passwords.go
 Password: secret

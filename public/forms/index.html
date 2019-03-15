@@ -186,28 +186,28 @@
 	Message <span style="color:#458;font-weight:bold">string</span>
 }
 
-<span style="font-weight:bold">func</span> main() {
-	tmpl <span style="font-weight:bold">:=</span> template.Must(template.ParseFiles(<span style="color:#b84">&#34;forms.html&#34;</span>))
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	tmpl <span style="font-weight:bold">:=</span> template.<span style="color:#900;font-weight:bold">Must</span>(template.<span style="color:#900;font-weight:bold">ParseFiles</span>(<span style="color:#b84">&#34;forms.html&#34;</span>))
 
-	http.HandleFunc(<span style="color:#b84">&#34;/&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/&#34;</span>, <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
 		<span style="font-weight:bold">if</span> r.Method <span style="font-weight:bold">!=</span> http.MethodPost {
-			tmpl.Execute(w, <span style="font-weight:bold">nil</span>)
+			tmpl.<span style="color:#900;font-weight:bold">Execute</span>(w, <span style="font-weight:bold">nil</span>)
 			<span style="font-weight:bold">return</span>
 		}
 
 		details <span style="font-weight:bold">:=</span> ContactDetails{
-			Email:   r.FormValue(<span style="color:#b84">&#34;email&#34;</span>),
-			Subject: r.FormValue(<span style="color:#b84">&#34;subject&#34;</span>),
-			Message: r.FormValue(<span style="color:#b84">&#34;message&#34;</span>),
+			Email:   r.<span style="color:#900;font-weight:bold">FormValue</span>(<span style="color:#b84">&#34;email&#34;</span>),
+			Subject: r.<span style="color:#900;font-weight:bold">FormValue</span>(<span style="color:#b84">&#34;subject&#34;</span>),
+			Message: r.<span style="color:#900;font-weight:bold">FormValue</span>(<span style="color:#b84">&#34;message&#34;</span>),
 		}
 
 		<span style="color:#998;font-style:italic">// do something with details
 </span><span style="color:#998;font-style:italic"></span>		_ = details
 
-		tmpl.Execute(w, <span style="font-weight:bold">struct</span>{ Success <span style="color:#458;font-weight:bold">bool</span> }{<span style="font-weight:bold">true</span>})
+		tmpl.<span style="color:#900;font-weight:bold">Execute</span>(w, <span style="font-weight:bold">struct</span>{ Success <span style="color:#458;font-weight:bold">bool</span> }{<span style="font-weight:bold">true</span>})
 	})
 
-	http.ListenAndServe(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
+	http.<span style="color:#900;font-weight:bold">ListenAndServe</span>(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
 }</code></pre></div>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#998;font-style:italic">&lt;!-- forms.html --&gt;</span>
 {{if .Success}}

@@ -177,11 +177,11 @@
 
 <span style="font-weight:bold">import</span> <span style="color:#b84">&#34;net/http&#34;</span>
 
-<span style="font-weight:bold">func</span> main() {
-	fs <span style="font-weight:bold">:=</span> http.FileServer(http.Dir(<span style="color:#b84">&#34;assets/&#34;</span>))
-	http.Handle(<span style="color:#b84">&#34;/static/&#34;</span>, http.StripPrefix(<span style="color:#b84">&#34;/static/&#34;</span>, fs))
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	fs <span style="font-weight:bold">:=</span> http.<span style="color:#900;font-weight:bold">FileServer</span>(http.<span style="color:#900;font-weight:bold">Dir</span>(<span style="color:#b84">&#34;assets/&#34;</span>))
+	http.<span style="color:#900;font-weight:bold">Handle</span>(<span style="color:#b84">&#34;/static/&#34;</span>, http.<span style="color:#900;font-weight:bold">StripPrefix</span>(<span style="color:#b84">&#34;/static/&#34;</span>, fs))
 
-	http.ListenAndServe(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
+	http.<span style="color:#900;font-weight:bold">ListenAndServe</span>(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
 }</code></pre></div>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ tree assets/
 assets/

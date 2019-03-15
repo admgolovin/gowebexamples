@@ -183,26 +183,26 @@
 	<span style="color:#b84">&#34;net/http&#34;</span>
 )
 
-<span style="font-weight:bold">func</span> logging(f http.HandlerFunc) http.HandlerFunc {
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">logging</span>(f http.HandlerFunc) http.HandlerFunc {
 	<span style="font-weight:bold">return</span> <span style="font-weight:bold">func</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-		log.Println(r.URL.Path)
-		f(w, r)
+		log.<span style="color:#900;font-weight:bold">Println</span>(r.URL.Path)
+		<span style="color:#900;font-weight:bold">f</span>(w, r)
 	}
 }
 
-<span style="font-weight:bold">func</span> foo(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-	fmt.Fprintln(w, <span style="color:#b84">&#34;foo&#34;</span>)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">foo</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+	fmt.<span style="color:#900;font-weight:bold">Fprintln</span>(w, <span style="color:#b84">&#34;foo&#34;</span>)
 }
 
-<span style="font-weight:bold">func</span> bar(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
-	fmt.Fprintln(w, <span style="color:#b84">&#34;bar&#34;</span>)
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">bar</span>(w http.ResponseWriter, r <span style="font-weight:bold">*</span>http.Request) {
+	fmt.<span style="color:#900;font-weight:bold">Fprintln</span>(w, <span style="color:#b84">&#34;bar&#34;</span>)
 }
 
-<span style="font-weight:bold">func</span> main() {
-	http.HandleFunc(<span style="color:#b84">&#34;/foo&#34;</span>, logging(foo))
-	http.HandleFunc(<span style="color:#b84">&#34;/bar&#34;</span>, logging(bar))
+<span style="font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/foo&#34;</span>, <span style="color:#900;font-weight:bold">logging</span>(foo))
+	http.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#b84">&#34;/bar&#34;</span>, <span style="color:#900;font-weight:bold">logging</span>(bar))
 
-	http.ListenAndServe(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
+	http.<span style="color:#900;font-weight:bold">ListenAndServe</span>(<span style="color:#b84">&#34;:8080&#34;</span>, <span style="font-weight:bold">nil</span>)
 }</code></pre></div>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ go run basic-middleware.go
 2017/02/10 23:59:34 /foo
