@@ -42,26 +42,19 @@ spec:
     options {
         skipDefaultCheckout true
     }
-
-    environment {
-        ECR_PASS = credentials('ecr_password')
-        registryIp = "818353068367.dkr.ecr.eu-central-1.amazonaws.com/andrew"
-    }
-
-    stages {
+    
         stage ('checkout') {
-            steps {
-                script {
-                    def repo = checkout scm
-                    revision = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
-                    branch = repo.GIT_BRANCH.take(20).replaceAll('/', '_')
-                    if (branch != 'master') {
-                        revision += "-${branch}"
+            steps{
+                script{
+                    print "Checkout stage is launched"
+                    def mycommit = checkout scm
+                    for (val in mycommit) {
+                        print "key = ${val.key}, value = ${val.value}"
                     }
-                    sh "echo 'Building revision: ${revision}'"
+                    revision = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
+
                 }
             }
-
         }
         stage ('compile') {
             steps {
