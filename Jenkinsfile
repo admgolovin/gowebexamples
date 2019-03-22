@@ -43,6 +43,9 @@ spec:
         skipDefaultCheckout true
     }
     
+    stages ('Tests'){
+        
+    
         stage ('checkout') {
             steps{
                 script{
