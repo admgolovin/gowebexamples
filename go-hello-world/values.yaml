@@ -30,11 +30,11 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-    - host: go.p0pc0rn.cf
+    - host: go-app.stark-net.com
       paths:
         - path: "/"
           backendsuffix: "-blue"
-    - host: staging-go.p0pc0rn.cf
+    - host: go-app-demo.stark-net.com
       paths:
         - path: "/"
           backendsuffix: "-green"
