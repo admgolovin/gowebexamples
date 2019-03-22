@@ -17,7 +17,7 @@ metadata:
     job: build-service
 spec:
   containers:
-  - name: helm
+  - name: helm-cli
     image: alpine/helm
     command: ["cat"]
     tty: true
@@ -94,7 +94,7 @@ spec:
         }
         stage ('Deploy') {
             steps {
-                container('helm') {
+                container('helm-cli') {
                     script {
                         currentSlot = sh(script: "helm get values --all hello-go | grep 'productionSlot:' | cut -d ' ' -f2 | tr -d '[:space:]'", returnStdout: true).trim()
                         sh "echo ${currentSlot}"
