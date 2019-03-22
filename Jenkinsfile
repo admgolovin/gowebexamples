@@ -21,6 +21,18 @@ spec:
     image: alpine/helm
     command: ["cat"]
     tty: true
+  - name: maven
+    image: maven:3.6-jdk-8-slim
+    command: ["cat"]
+    tty: true
+    resources:
+      requests:
+        ephemeral-storage: "100Mi"
+      limits:
+        ephemeral-storage: "2Gi"
+    volumeMounts:
+    - name: repository
+      mountPath: /root/.m2/repository
   - name: hugo
     image: ubuntu
     command: ["cat"]
