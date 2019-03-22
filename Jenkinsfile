@@ -75,10 +75,11 @@ spec:
             steps {
                 container('docker') {
                     script {
-                        sh "docker login -u AWS -p ${ECR_PASS} ${registryIp}"
-                        sh "docker build . -t ${registryIp}:${revision}"
-                        sh "docker push ${registryIp}:${revision}"
-                    }
+                        registryIp= "818353068367.dkr.ecr.eu-central-1.amazonaws.com/tony"
+                        sh "docker build . -t ${registryIp}:${revision} --build-arg REVISION=${revision}"
+                        docker.withRegistry("https://818353068367.dkr.ecr.eu-central-1.amazonaws.com", "ecr:eu-central-1:antons-aws") {
+                            sh "docker push ${registryIp}:${revision}"
+                        }   
                 }
             }
         }
