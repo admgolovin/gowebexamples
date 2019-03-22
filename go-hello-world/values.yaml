@@ -9,13 +9,13 @@ blue:
 productionSlot: blue
 
 imageBlue:
-  repository: 818353068367.dkr.ecr.eu-central-1.amazonaws.com/andrew
-  tag: 541f606.20190313-1654-origin_master
+  repository: 818353068367.dkr.ecr.eu-central-1.amazonaws.com/tony
+  tag:
   pullPolicy: IfNotPresent
 
 imageGreen:
-  repository: 818353068367.dkr.ecr.eu-central-1.amazonaws.com/andrew
-  tag: bef964a.20190314-2327-origin_master
+  repository: 818353068367.dkr.ecr.eu-central-1.amazonaws.com/tony
+  tag:
   pullPolicy: IfNotPresent
 
 nameOverride: ""
